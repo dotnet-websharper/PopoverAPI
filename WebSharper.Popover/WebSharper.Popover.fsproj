@@ -4,7 +4,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Product>WebSharper.Popover</Product>
-    <Title>https://github.com/dotnet-websharper/popover/</Title>
+    <Title>https://github.com/dotnet-websharper/PopoverAPI/</Title>
     <Company>IntelliFactory</Company>
     <Copyright>(c) 2023 IntelliFactory</Copyright>
   </PropertyGroup>
