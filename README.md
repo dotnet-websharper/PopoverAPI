@@ -17,14 +17,14 @@ This repository contains:
 
 ## Live demos
 
-**Try it live:** [Open the sample in your browser](https://dotnet-websharper.github.io/popover/)
+**Try it live:** [Open the sample in your browser](https://dotnet-websharper.github.io/PopoverAPI/)
 
 ![Popover API sample](docs/sample.png)
 
 The sample doubles as the binding's test case: it shows and hides a native popover from F# event handlers.
 
-- **Sample (this repository):** <https://dotnet-websharper.github.io/popover/>
-- **Source repository:** <https://github.com/dotnet-websharper/popover>
+- **Sample (this repository):** <https://dotnet-websharper.github.io/PopoverAPI/>
+- **Source repository:** <https://github.com/dotnet-websharper/PopoverAPI>
 - **WebSharper bindings:** <https://websharper.com/bindings>
 
 ## Features

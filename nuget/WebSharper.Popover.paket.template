@@ -5,10 +5,10 @@ authors
 owners
     IntelliFactory
 repositoryType git
-repositoryUrl https://github.com/dotnet-websharper/popover/
-licenseUrl https://github.com/dotnet-websharper/popover/blob/master/LICENSE.md
+repositoryUrl https://github.com/dotnet-websharper/PopoverAPI/
+licenseUrl https://github.com/dotnet-websharper/PopoverAPI/blob/main/LICENSE.md
 iconUrl https://github.com/dotnet-websharper/core/raw/websharper50/tools/WebSharper.png
-projectUrl https://github.com/dotnet-websharper/popover
+projectUrl https://github.com/dotnet-websharper/PopoverAPI
 description
     WebSharper bindings for the W3C Popover API
 tags
