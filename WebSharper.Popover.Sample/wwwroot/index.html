@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WebSharper Popover Demo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234f46e5'/%3E%3Cpath d='M3 4.5h10v6H8.5L5 13v-2.5H3z' fill='white'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" type="text/css" href="Content/WebSharper.Popover.Sample.css" />
+    <link rel="stylesheet" type="text/css" href="site.css" />
+    <script type="module" src="Content/WebSharper.Popover.Sample.head.js"></script>
+</head>
+<body>
+    <main class="page">
+        <header class="hero">
+            <h1>Popover API Demo</h1>
+            <p class="lede">
+                Show and hide native popovers with the
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API" target="_blank" rel="noreferrer">Popover API</a>.
+                Popovers are top-layer elements that render above the rest of the page.
+            </p>
+        </header>
+
+        <section class="card">
+            <h2>Controls</h2>
+            <p class="hint">Use <code>showPopover()</code> and <code>hidePopover()</code> to control the popover.</p>
+            <div class="actions">
+                <button class="btn btn-primary" ws-onclick="ShowBtn">Show popover</button>
+                <button class="btn" ws-onclick="HideBtn">Hide popover</button>
+            </div>
+
+            <div id="myPopover" popover>
+                <p>This is a controlled popover!</p>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>How it works</h2>
+            <ul class="readout">
+                <li><code>showPopover()</code> — show the popover in the top layer.</li>
+                <li><code>hidePopover()</code> — hide the popover.</li>
+                <li><code>togglePopover()</code> — flip the popover's state.</li>
+            </ul>
+        </section>
+    </main>
+    <script type="module" src="Content/WebSharper.Popover.Sample.min.js"></script>
+</body>
+</html>

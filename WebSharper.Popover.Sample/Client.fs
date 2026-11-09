@@ -1,32 +1,24 @@
-﻿namespace WebSharper.Popover.Sample
+namespace WebSharper.Popover.Sample
 
 open WebSharper
-open WebSharper.Popover
 open WebSharper.JavaScript
+open WebSharper.UI
 open WebSharper.UI.Client
-open WebSharper.UI.Server
 open WebSharper.UI.Templating
+open WebSharper.Popover
 
-module Templates =
-    type MainTemplate = Template<"index.html", ClientLoad.FromDocument>
 [<JavaScript>]
 module Client =
+    // The template is loaded from the DOM, so editing index.html and refreshing
+    // the browser is enough; a rebuild is only needed when holes change.
+    type IndexTemplate = Template<"wwwroot/index.html", ClientLoad.FromDocument>
+
+    let popover () =
+        JS.Document.GetElementById("myPopover") |> As<HTMLElement>
 
     [<SPAEntryPoint>]
     let Main () =
-            
-            Templates.MainTemplate.PopoverSample()
-                .PopoverInit(fun (el:Dom.Element) ->
-                    let pop = As<HTMLElement>(el)
-                    pop.OnToggle <- (fun evt ->
-                        if evt.NewState <> evt.OldState then
-                            Console.Log $"Popover state: {evt.NewState}"
-                        )
-                    
-                    let popbtn = As<HTMLButtonElement>(JS.Document.GetElementById("open-btn"))
-                    popbtn.PopoverTargetAction <- TargetActionType.Toggle
-                    popbtn.PopoverTargetElement <- el
-                )
-                .Doc()
-                |> Doc.RunById "main"
-        
+        IndexTemplate()
+            .ShowBtn(fun _ -> popover().ShowPopover())
+            .HideBtn(fun _ -> popover().HidePopover())
+            .Bind()

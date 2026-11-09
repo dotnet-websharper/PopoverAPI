@@ -1,4 +1,4 @@
-﻿namespace WebSharper.Bindings.Popover
+﻿namespace WebSharper.Popover
 
 open WebSharper
 open WebSharper.JavaScript
@@ -6,46 +6,35 @@ open WebSharper.InterfaceGenerator
 
 module Definition =
 
-    let ToggleEvent =
-        let ToggleEventState =
-            Pattern.EnumStrings "ToggleEvent.ToggleState" [
-                "open"
-                "closed"
+    module Enum = 
+        let PopoverState =
+            Pattern.EnumStrings "PopoverState" ["auto"; "hint"; "manual"]
+
+        let PopoverTargetAction =
+            Pattern.EnumStrings "PopoverTargetAction" ["hide"; "show"; "toggle"]
+
+        let ToggleState =
+            Pattern.EnumStrings "ToggleState" ["open"; "closed"]
+
+    let ToggleEventInit =
+        Pattern.Config "ToggleEventInit" {
+            Required = []
+            Optional = [
+                "newState", Enum.ToggleState.Type
+                "oldState", Enum.ToggleState.Type
             ]
+        }
 
-        let ToggleEventInit =
-            Pattern.Config "ToggleEventInit" {
-                Required = []
-                Optional = [
-                    "newState", ToggleEventState.Type
-                    "oldState", ToggleEventState.Type
-                ]
-            }
-
+    let ToggleEvent =
         Class "ToggleEvent"
         |=> Inherits T<Dom.Event>
-        |=> Nested [ToggleEventState; ToggleEventInit]
+        |+> Instance [
+            "newState" =? Enum.ToggleState.Type
+            "oldState" =? Enum.ToggleState.Type
+        ]
         |+> Static [
             Constructor (T<string>?eventType * !?ToggleEventInit?init)
-        ]   
-        |+> Instance [
-            "newState" =? ToggleEventState
-            "oldState" =? ToggleEventState
-        ]
-    
-    let PopoverState =
-        Pattern.EnumStrings "Popover.PopoverState" [
-            "auto"
-            "hint"
-            "manual"
-        ]
-
-    let TargetActionType =
-        Pattern.EnumStrings "Popover.TargetActionType" [
-            "hide"
-            "show"
-            "toggle"
-        ]
+        ]     
 
     let ShowPopoverOptions =
         Pattern.Config "ShowPopoverOptions" {
@@ -61,15 +50,55 @@ module Definition =
                 "source", T<HTMLElement>
             ]
         }
+
+    let HTMLElement =
+        Class "HTMLElement"
+        |+> Instance [
+            "popover" =@ Enum.PopoverState
+
+            "showPopover" => !?ShowPopoverOptions ^-> T<unit>
+            "hidePopover" => T<unit> ^-> T<unit>
+            "togglePopover" => !?T<bool>?force * !?TogglePopoverOptions?source ^-> T<bool>
+
+            // events
+            "onbeforetoggle" =@ T<unit> ^-> T<unit>
+            |> ObsoleteWithMessage "Use OnBeforeToggle instead"
+            "onbeforetoggle" =@ ToggleEvent ^-> T<unit>
+            |> WithSourceName "OnBeforeToggle"
+
+            "ontoggle" =@ T<unit> ^-> T<unit>
+            |> ObsoleteWithMessage "Use OnToggle instead"
+            "ontoggle" =@ ToggleEvent ^-> T<unit>
+            |> WithSourceName "OnToggle"
+        ]        
+
+    let HTMLButtonElement =
+        Class "HTMLButtonElement"
+        |+> Instance [
+            "popoverTargetElement" =@ T<Dom.Element>
+            "popoverTargetAction" =@ Enum.PopoverTargetAction
+        ]        
+
+    let HTMLInputElement =
+        Class "HTMLInputElement"
+        |+> Instance [
+            "popoverTargetElement" =@ T<Dom.Element>
+            "popoverTargetAction" =@ Enum.PopoverTargetAction
+        ]
         
     let Assembly =
         Assembly [
             Namespace "WebSharper.Popover" [
-                ToggleEvent
-                PopoverState
-                ShowPopoverOptions
+                HTMLInputElement
+                HTMLButtonElement
+                HTMLElement
                 TogglePopoverOptions
-                TargetActionType
+                ShowPopoverOptions
+                ToggleEvent
+                ToggleEventInit
+                Enum.ToggleState
+                Enum.PopoverTargetAction
+                Enum.PopoverState
             ]
         ]
 
